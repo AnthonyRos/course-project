@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 
 @Component({
   selector: 'app-shopping-list',
@@ -13,9 +14,28 @@ export class ShoppingListComponent implements OnInit {
     new Ingredient ("Test Ingredient 2", 25)
   ];
 
-  constructor() { }
+  @ViewChild(ShoppingEditComponent)
+  private editComponent: ShoppingEditComponent;
+
+  constructor() {
+    setTimeout(()=> {
+      console.log(this.editComponent)
+    }, 2000);
+    this.ingredients.push(new Ingredient("test", 250))
+    
+   }
 
   ngOnInit() {
+  }
+
+  createList({name, amount}) {
+    console.log(name.value + " " + amount.value)
+    this.ingredients.push(new Ingredient(name.value, amount.value))
+
+  }
+
+  deleteLastListItem() {
+    this.ingredients.pop()
   }
 
 }
