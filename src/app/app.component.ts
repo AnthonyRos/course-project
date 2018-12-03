@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   
-  recipesVisibility: boolean = true;
-  shopListVisibility: boolean = false;
+  recipesVisibility: boolean = false;
+  shopListVisibility: boolean = true;
   
   onToggleNav(nav: string) {
     if (nav === 'recipes') {

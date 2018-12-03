@@ -1,45 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
+import { ShoppingListService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
+  providers: [ShoppingListService]
 })
 export class ShoppingListComponent implements OnInit {
 
-  ingredients: Ingredient[] = [
-    new Ingredient ("Test Ingredient", 250),
-    new Ingredient ("Test Ingredient 2", 25)
-  ];
+  ingredients: Ingredient[] = [];
 
-  @ViewChild(ShoppingEditComponent)
-  private editComponent: ShoppingEditComponent;
 
-  constructor() {
-    setTimeout(()=> {
-      console.log(this.editComponent)
-    }, 2000);
-    this.ingredients.push(new Ingredient("test", 250))
-    
-   }
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
-  }
-
-  createList(newIngredient) {
     
-    this.ingredients.push(newIngredient)
-
   }
 
-  deleteLastListItem() {
-    this.ingredients.pop()
-  }
-
-  clearList() {
-    this.ingredients = []
+  ngAfterContentChecked(): void {
+    this.ingredients = this.shoppingListService.getIngredients()   
   }
 
 }
