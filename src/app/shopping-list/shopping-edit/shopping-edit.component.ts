@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 
 @Component({
@@ -8,8 +8,13 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  @Output() addIngredient = new EventEmitter<{name: HTMLInputElement, amount: HTMLInputElement}>();
+  //@Output() addIngredient = new EventEmitter<{name: HTMLInputElement, amount: HTMLInputElement}>();
+  @Output() addIngredient = new EventEmitter<Ingredient>();
   @Output() deleteIngredient = new EventEmitter<void>()
+  @Output() clearList = new EventEmitter<void>()
+  @ViewChild('nameInput') nameInputRef: ElementRef;
+  @ViewChild('amountInput') amountInputRef: ElementRef;
+
 
 
   constructor() { 
@@ -17,16 +22,30 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   ngOnInit() {
+   
   }
 
-  onAddIngredient(ingredientName: HTMLInputElement, ingredientAmount: HTMLInputElement) {
-    console.log(ingredientName.value + " " + ingredientAmount.value);
+  onAddIngredient() {
+    console.log(this.nameInputRef.nativeElement.value);
+    const ingredientName = this.nameInputRef.nativeElement.value;
+    const ingredientAmount = this.amountInputRef.nativeElement.value;
     
-    this.addIngredient.emit({name: ingredientName, amount: ingredientAmount})
+    if (ingredientAmount && ingredientName) {
+      const ingredient = new Ingredient(ingredientName, ingredientAmount)
+      this.addIngredient.emit(ingredient)
+    }
+
+    
+    
+   // ingredientAmount.value = "";
   }
 
   onDeleteIngredient() {
     this.deleteIngredient.emit(null)
+  }
+
+  onClear() {
+    this.clearList.emit(null)
   }
 
 }

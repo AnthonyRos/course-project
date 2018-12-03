@@ -28,14 +28,18 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit() {
   }
 
-  createList({name, amount}) {
-    console.log(name.value + " " + amount.value)
-    this.ingredients.push(new Ingredient(name.value, amount.value))
+  createList(newIngredient) {
+    
+    this.ingredients.push(newIngredient)
 
   }
 
   deleteLastListItem() {
     this.ingredients.pop()
+  }
+
+  clearList() {
+    this.ingredients = []
   }
 
 }
