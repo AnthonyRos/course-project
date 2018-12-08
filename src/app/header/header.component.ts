@@ -7,16 +7,10 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  recipesVisibility: boolean = true;
-  shopListVisibility: boolean = false;
-  @Output() navInteraction = new EventEmitter<string>()
   constructor() { }
 
   ngOnInit() {
   }
 
-  onToggleNav(nav: string) {
-    this.navInteraction.emit(nav)
-  }
 
 }

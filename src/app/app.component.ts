@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
-  recipesVisibility: boolean = true;
-  shopListVisibility: boolean = false;
-  
+
+  recipesVisibility = true;
+  shopListVisibility = false;
+
   onToggleNav(nav: string) {
     if (nav === 'recipes') {
       this.recipesVisibility = true;
